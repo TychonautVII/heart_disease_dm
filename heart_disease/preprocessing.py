@@ -27,10 +27,13 @@ def load_raw_data(data_file_name_str):
 
     # Read in the data
     data_df = pd.read_csv((data_path_str + data_file_name_str),
-                          names=column_names, dtype=dtype_map)
+                          names=column_names, na_values='?',dtype=dtype_map)
 
     # Basic Pre-processing:
     data_df['ispos_truth'] = data_df['num'] != '0'
     data_df.drop('num', 1, inplace=True)
 
     return data_df
+
+def clean_data(df, preprocessing_objc=None):
+    pass
