@@ -244,8 +244,19 @@ class DataCleaner(BaseEstimator, TransformerMixin):
 
         # TODO Have some Standards across all transformers, but make anything changeable kv
 
+        # https: // stats.stackexchange.com / questions / 177082 / sklearn - combine - multiple - feature - sets - in -pipeline
+        # ItemSelector
+        # http: // scikit - learn.org / stable / auto_examples / hetero_feature_union.html
         # Path to the Feature Metadata
+        # http: // scikit - learn.org / stable / developers / contributing.html
+        # http: // scikit - learn.org / stable / modules / generated / sklearn.model_selection.GridSearchCV.html
+
+
+        # http: // scikit - learn.org / stable / modules / pipeline.html  # pipeline
         self.path2meta = path2meta # Path to the Feature Metadata
+
+
+
 
 
         # Column Names of the Matrix X
