@@ -30,3 +30,8 @@ data_df = pre_proc.load_raw_data(data_file_name_str)
 
 clean_df, preproc_dict = pre_proc.clean_data(data_df)
 clean_df.head()
+
+# New Method
+dc = pre_proc.DataCleaner(column_names_list=list(data_df.columns[:-1]))
+X = np.array(data_df.loc[:,data_df.columns[:-1]])
+out = dc.fit(X)
