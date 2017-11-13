@@ -16,4 +16,4 @@ outcome_to_learn = 'ispos_truth'
 # sh = logging.StreamHandler()
 # formatter = logging.Formatter(LOG_FMT)
 # sh.setFormatter(formatter)
-# logger.addHandler(sh)
+# logger.addHandlerx(sh)
