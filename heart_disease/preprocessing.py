@@ -135,10 +135,12 @@ class DataCleaner(object):
                                            ('Imputer',  Imputer(strategy='mean', verbose=verbose)),
                                            ('scalar',   StandardScaler())])),
                 ('bool_pipe', Pipeline([('selector', ItemSelector(key_list=self.bool_feat_list)),
-                                        ('Imputer',  Imputer(strategy='most_frequent',  verbose=verbose))])),
+                                        ('Imputer',  Imputer(strategy='most_frequent',  verbose=verbose)),
+                                        ('scalar', StandardScaler())])),
                 ('cat_pipe', Pipeline([('selector', ItemSelector(key_list=self.categorical_feat_list)),
                                        ('Imputer',  Imputer(strategy='most_frequent',  verbose=verbose)),
-                                       ('encoder',  OneHotEncoder())])),
+                                       ('encoder',  OneHotEncoder()),
+                                       ('scalar', StandardScaler()) ])),
 
                 ]
         )
