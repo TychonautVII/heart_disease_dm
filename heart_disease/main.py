@@ -2,6 +2,10 @@ import numpy as np
 import logging
 import pandas as pd
 from copy import deepcopy as cp
+import matplotlib
+matplotlib.use('agg')
+matplotlib = matplotlib.reload(matplotlib)
+
 
 from heart_disease.globals import code_path_str, data_path_str
 import heart_disease.preprocessing as pre_proc
@@ -32,6 +36,7 @@ clean_df, preproc_dict = pre_proc.clean_data(data_df)
 clean_df.head()
 
 # New Method
-dc = pre_proc.DataCleaner(column_names_list=list(data_df.columns[:-1]))
-X = np.array(data_df.loc[:,data_df.columns[:-1]])
-out = dc.fit(X)
+
+
+if __name__ =='__main__':
+    print("is Main")
