@@ -2,7 +2,7 @@ import numpy as np
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.preprocessing import Imputer, StandardScaler
 from sklearn.pipeline import FeatureUnion, Pipeline
-
+from sklearn.model_selection import StratifiedShuffleSplit
 
 import pandas as pd
 import logging
@@ -153,3 +153,15 @@ class DataCleaner(object):
             return self.numeric_feat_list + self.bool_feat_list + new_cat_feat_list
         else:
             raise(ValueError("Cleaner must be fitted before new column names can be retrieved"))
+
+def stratified_split_off_validation(input_df, output_dir, name='',validation_size=0.25):
+    X = np.array(input_df.iloc[:, :-1])
+    y = np.array(input_df['ispos_truth'])
+
+    sss = StratifiedShuffleSplit(n_splits=1, test_size=validation_size)
+    for train_idx, validation_idx in sss.split(X, y):
+        pass
+
+    input_df.iloc[train_idx, :].to_csv(output_dir + 'train_validation.' + name + '.csv')
+    input_df.iloc[validation_idx, :].to_csv(output_dir + 'test.' + name + '.csv')
+
