@@ -7,7 +7,7 @@ import seaborn as sns
 from sklearn.model_selection import learning_curve
 
 
-def learning_curve(estimator, title, X, y, ylim=None, cv=None,
+def show_learning_curve(estimator, title, X, y, ylim=None, cv=None,
                         n_jobs=1, train_sizes=np.linspace(.1, 1.0, 5)):
     """
     Generate a simple plot of the test and training learning curve.
@@ -76,7 +76,7 @@ def learning_curve(estimator, title, X, y, ylim=None, cv=None,
              label="Cross-validation score")
 
     plt.legend(loc="best")
-    return plt
+    # return plt
 
 def correlation_matrix(input_df):
 
