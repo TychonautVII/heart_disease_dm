@@ -1,14 +1,13 @@
 import logging
 
-code_path_str = '/Users/peter/OneDrive/Peter/JHU/DataMining/project/heart_disease/heart_disease/'
+code_path = '/Users/peter/OneDrive/Peter/JHU/DataMining/project/heart_disease/heart_disease/'
 
-raw_data_path_str = '/Users/peter/OneDrive/Peter/JHU/DataMining/project/data/'
+raw_data_path = '/Users/peter/OneDrive/Peter/JHU/DataMining/project/data/'
 
-processed_data_path_str = '/Users/peter/OneDrive/Peter/JHU/DataMining/project/heart_disease/processed_data/'
+data_path = '/Users/peter/OneDrive/Peter/JHU/DataMining/project/heart_disease/processed_data/'
 
-output_path_str = '/Users/peter/OneDrive/Peter/JHU/DataMining/project/output/'
+output_path = '/Users/peter/OneDrive/Peter/JHU/DataMining/project/output/'
 
-outcome_to_learn = 'ispos_truth'
 
 # LOG_FMT = '%(asctime)s|%(name)s|%(levelname)s|%(message)s'
 # logging.basicConfig(level=logging.DEBUG)

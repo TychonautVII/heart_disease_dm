@@ -146,13 +146,20 @@ class DataCleaner(object):
         )
 
     def get_output_col_neams(self):
-        ohe = self.Cleaner.get_params()['cat_pipe__encoder']
+        "Get the column names in order of the features post cleaning"
+        ohe = self.CleaningPipeline.get_params()['cat_pipe__encoder']
 
         if ohe.is_fitted:
-            new_cat_feat_list = self.Cleaner.get_params()['cat_pipe__encoder'].get_new_column_names(self.categorical_feat_list)
+            new_cat_feat_list = ohe.get_new_column_names(self.categorical_feat_list)
             return self.numeric_feat_list + self.bool_feat_list + new_cat_feat_list
         else:
             raise(ValueError("Cleaner must be fitted before new column names can be retrieved"))
+
+
+    def get_clean_dataframe(self, input_df):
+        return pd.DataFrame(self.CleaningPipeline.fit_transform(input_df), columns=self.get_output_col_neams())
+
+
 
 def stratified_split_off_validation(input_df, output_dir, name='',validation_size=0.25):
     X = np.array(input_df.iloc[:, :-1])
@@ -161,7 +168,13 @@ def stratified_split_off_validation(input_df, output_dir, name='',validation_siz
     sss = StratifiedShuffleSplit(n_splits=1, test_size=validation_size)
     for train_idx, validation_idx in sss.split(X, y):
         pass
+    # outputs it into the same format as it was input
+    input_df.iloc[train_idx, :].to_csv(output_dir + 'train_validation.' + name + '.csv', header=True, index_label='pat_id')
+    input_df.iloc[validation_idx, :].to_csv(output_dir + 'test.' + name + '.csv', header=True, index_label='pat_id')
 
-    input_df.iloc[train_idx, :].to_csv(output_dir + 'train_validation.' + name + '.csv')
-    input_df.iloc[validation_idx, :].to_csv(output_dir + 'test.' + name + '.csv')
+def load_data(data_path):
+    """Loaded the data as written by stratified_split_off_validation. This is a little cleaner than the form of load_raw_data so a different reader was required"""
+
+    return pd.read_csv(data_path,index_col='pat_id')
+
 

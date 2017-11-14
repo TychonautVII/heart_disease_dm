@@ -3,10 +3,11 @@ import pandas as pd
 import logging
 logger = logging.getLogger(__name__)
 import matplotlib.pyplot as plt
+import seaborn as sns
 from sklearn.model_selection import learning_curve
 
 
-def plot_learning_curve(estimator, title, X, y, ylim=None, cv=None,
+def learning_curve(estimator, title, X, y, ylim=None, cv=None,
                         n_jobs=1, train_sizes=np.linspace(.1, 1.0, 5)):
     """
     Generate a simple plot of the test and training learning curve.
@@ -76,3 +77,31 @@ def plot_learning_curve(estimator, title, X, y, ylim=None, cv=None,
 
     plt.legend(loc="best")
     return plt
+
+def correlation_matrix(input_df):
+
+    """
+    Plots the correlation matrix of an input dataframe
+
+    Code  largely taken from https://seaborn.pydata.org/examples/many_pairwise_correlations.html
+    :param input_df:
+    :return:
+    """
+
+    corr = input_df.corr()
+
+    # Compute the correlation matrix
+
+    # Generate a mask for the upper triangle
+    mask = np.zeros_like(corr, dtype=np.bool)
+    mask[np.triu_indices_from(mask)] = True
+
+    # Set up the matplotlib figure
+    f, ax = plt.subplots(figsize=(11, 9))
+
+    # Generate a custom diverging colormap
+    cmap = sns.diverging_palette(220, 10, as_cmap=True)
+
+    # Draw the heatmap with the mask and correct aspect ratio
+    sns.heatmap(corr, mask=mask, cmap=cmap, vmax=.3, center=0,
+                square=True, linewidths=.5, cbar_kws={"shrink": .5})
