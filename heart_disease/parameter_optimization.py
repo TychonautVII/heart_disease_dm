@@ -21,7 +21,7 @@ from heart_disease.globals import data_path, output_path
 logger = logging.getLogger(__name__)
 
 def __grid_search_wrapper(model, parameters, X, y, name='',
-                          n_jobs=1, test_size=0.25, cv=None, n_splits=10):
+                          n_jobs=4, test_size=0.25, cv=None, n_splits=10):
     """A wrapper around sklearns GridSearchCV for my convience"""
     if cv is None:
         cv = StratifiedShuffleSplit(n_splits=n_splits, test_size=test_size, random_state=0)
@@ -38,7 +38,7 @@ def __grid_search_wrapper(model, parameters, X, y, name='',
 def get_paramater_grids(data_path):
     """Returns all the Models / Paramters I'm searching over"""
 
-    pca_nfeatures = [1, 2, 5, 10, 15, 20, 25]
+    pca_nfeatures = [1, 2, 5, 10, 15, 20, 24]
     svc_C = [0.5, 1, 3.5, 10, 15]
     svc_gamma = np.logspace(-6, -0.1, 10)
 
