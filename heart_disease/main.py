@@ -25,3 +25,4 @@ if __name__ =='__main__':
     data_file_name_str = 'train_validation.cleveland.csv'
     data_df = hdpp.load_data(data_path + data_file_name_str)
     hdpo.execute_grid_search(data_df,data_df['ispos_truth'])
+    # TODO: add PCA to cleaner, make it an obvious paramater to be passed into cleaner

@@ -86,15 +86,25 @@ def get_paramater_grids(data_path):
          'feature__n_components': pca_nfeatures}
 
     # Perceptron
-    paramater_grids['Perceptron'] = {}
-    paramater_grids['Perceptron']['pipeline'] = \
+    paramater_grids['Perceptron_PCA'] = {}
+    paramater_grids['Perceptron_PCA']['pipeline'] = \
         Pipeline([
             ('cleaner', hdpp.DataCleaner(data_path + 'meta_data.csv').CleaningPipeline),
             ('feature', PCA()),
             ('classifier', Perceptron())
         ])
-    paramater_grids['Perceptron']['parameters'] = \
+    paramater_grids['Perceptron_PCA']['parameters'] = \
         {'feature__n_components': pca_nfeatures}
+
+    # Perceptron
+    paramater_grids['Perceptron_LDA'] = {}
+    paramater_grids['Perceptron_LDA']['pipeline'] = \
+        Pipeline([
+            ('cleaner', hdpp.DataCleaner(data_path + 'meta_data.csv').CleaningPipeline),
+            ('feature', LinearDiscriminantAnalysis()),
+            ('classifier', Perceptron())
+        ])
+    paramater_grids['Perceptron_LDA']['parameters'] = {}
 
     return paramater_grids
 
@@ -103,7 +113,7 @@ def execute_grid_search(X,y):
     search_dict = get_paramater_grids(data_path)
 
     for name, details_dict in search_dict.items():
-        results = __grid_search_wrapper(details_dict['pipeline'],details_dict['parameters'],X,y, name=name,n_splits=1)
+        results = __grid_search_wrapper(details_dict['pipeline'],details_dict['parameters'],X,y, name=name,n_splits=25)
         results.to_pickle(output_path + name + '.grid_search.pkl')
 
 
