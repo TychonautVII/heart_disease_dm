@@ -1,0 +1,32 @@
+2017-11-14 21:44:12,924|heart_disease.parameter_optimization|INFO|SVC Grid Search Started
+2017-11-14 21:44:45,000|heart_disease.parameter_optimization|INFO|SVC Grid Search Complete
+2017-11-14 21:44:45,000|heart_disease.parameter_optimization|INFO|SVC Best Score: 0.9473684210526315
+2017-11-14 21:44:45,000|heart_disease.parameter_optimization|INFO|SVC Best Params: {'classifier__C': 0.5, 'classifier__gamma': 9.9999999999999995e-07, 'classifier__kernel': 'linear', 'feature__n_components': 5}
+2017-11-14 21:44:45,003|heart_disease.parameter_optimization|INFO|SVC_poly Grid Search Started
+2017-11-14 21:45:44,552|heart_disease.parameter_optimization|INFO|SVC_poly Grid Search Complete
+2017-11-14 21:45:44,553|heart_disease.parameter_optimization|INFO|SVC_poly Best Score: 0.9122807017543859
+2017-11-14 21:45:44,553|heart_disease.parameter_optimization|INFO|SVC_poly Best Params: {'classifier__C': 0.5, 'classifier__degree': 3, 'classifier__gamma': 0.17556762912750015, 'feature__n_components': 5}
+2017-11-14 21:45:44,556|heart_disease.parameter_optimization|INFO|GM Grid Search Started
+2017-11-14 21:45:49,631|heart_disease.parameter_optimization|INFO|GM Grid Search Complete
+2017-11-14 21:45:49,631|heart_disease.parameter_optimization|INFO|GM Best Score: 0.9122807017543859
+2017-11-14 21:45:49,631|heart_disease.parameter_optimization|INFO|GM Best Params: {'classifier__covariance_type': 'full', 'classifier__n_components': 2, 'feature__n_components': 1}
+2017-11-14 21:45:49,633|heart_disease.parameter_optimization|INFO|Perceptron Grid Search Started
+2017-11-14 21:45:49,777|heart_disease.parameter_optimization|INFO|Perceptron Grid Search Complete
+2017-11-14 21:45:49,777|heart_disease.parameter_optimization|INFO|Perceptron Best Score: 0.9122807017543859
+2017-11-14 21:45:49,777|heart_disease.parameter_optimization|INFO|Perceptron Best Params: {'feature__n_components': 1}
+2017-11-14 21:54:25,502|heart_disease.parameter_optimization|INFO|SVC Grid Search Started
+2017-11-14 21:54:58,377|heart_disease.parameter_optimization|INFO|SVC Grid Search Complete
+2017-11-14 21:54:58,377|heart_disease.parameter_optimization|INFO|SVC Best Score: 0.9473684210526315
+2017-11-14 21:54:58,377|heart_disease.parameter_optimization|INFO|SVC Best Params: {'classifier__C': 0.5, 'classifier__gamma': 9.9999999999999995e-07, 'classifier__kernel': 'linear', 'feature__n_components': 5}
+2017-11-14 21:54:58,380|heart_disease.parameter_optimization|INFO|SVC_poly Grid Search Started
+2017-11-14 21:55:55,758|heart_disease.parameter_optimization|INFO|SVC_poly Grid Search Complete
+2017-11-14 21:55:55,759|heart_disease.parameter_optimization|INFO|SVC_poly Best Score: 0.9122807017543859
+2017-11-14 21:55:55,759|heart_disease.parameter_optimization|INFO|SVC_poly Best Params: {'classifier__C': 0.5, 'classifier__degree': 3, 'classifier__gamma': 0.17556762912750015, 'feature__n_components': 5}
+2017-11-14 21:55:55,762|heart_disease.parameter_optimization|INFO|GM Grid Search Started
+2017-11-14 21:56:00,993|heart_disease.parameter_optimization|INFO|GM Grid Search Complete
+2017-11-14 21:56:00,994|heart_disease.parameter_optimization|INFO|GM Best Score: 0.9473684210526315
+2017-11-14 21:56:00,994|heart_disease.parameter_optimization|INFO|GM Best Params: {'classifier__covariance_type': 'tied', 'classifier__n_components': 2, 'feature__n_components': 2}
+2017-11-14 21:56:01,005|heart_disease.parameter_optimization|INFO|Perceptron Grid Search Started
+2017-11-14 21:56:01,147|heart_disease.parameter_optimization|INFO|Perceptron Grid Search Complete
+2017-11-14 21:56:01,147|heart_disease.parameter_optimization|INFO|Perceptron Best Score: 0.9122807017543859
+2017-11-14 21:56:01,147|heart_disease.parameter_optimization|INFO|Perceptron Best Params: {'feature__n_components': 1}
