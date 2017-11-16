@@ -159,8 +159,6 @@ class DataCleaner(object):
     def get_clean_dataframe(self, input_df):
         return pd.DataFrame(self.CleaningPipeline.fit_transform(input_df), columns=self.get_output_col_neams())
 
-
-
 def stratified_split_off_validation(input_df, output_dir, name='',validation_size=0.25):
     X = np.array(input_df.iloc[:, :-1])
     y = np.array(input_df['ispos_truth'])

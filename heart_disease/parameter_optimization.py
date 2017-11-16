@@ -20,6 +20,10 @@ from heart_disease.globals import data_path, output_path
 
 logger = logging.getLogger(__name__)
 
+
+algorithum_list = ["SVC", "SVC_poly", "GM", "Perceptron_PCA", "Perceptron_LDA"]
+
+
 def __grid_search_wrapper(model, parameters, X, y, name='',
                           n_jobs=4, test_size=0.25, cv=None, n_splits=10):
     """A wrapper around sklearns GridSearchCV for my convience"""
@@ -39,8 +43,15 @@ def get_paramater_grids(data_path):
     """Returns all the Models / Paramters I'm searching over"""
 
     pca_nfeatures = [1, 2, 5, 10, 15, 20, 24]
-    svc_C = [0.5, 1, 3.5, 10, 15]
-    svc_gamma = np.logspace(-6, -0.1, 10)
+
+    # some may have more or few features based on training. 24 seems safe
+
+    # Number of training points allowed to be on the wrong side of hyperplane.
+    # A point is fractionally over the line if it violates the margin
+    # 0 is a lower bound
+    # The approximent number of training points (170)/2 seems like a reasonable upper bound
+    svc_C = [0.0, 1] + list(np.linspace(2, 100, 5))
+    svc_gamma = np.logspace(-6, -0.1, 10) #kernal parameter
 
     paramater_grids = {}
 
@@ -53,7 +64,7 @@ def get_paramater_grids(data_path):
             ('classifier', SVC())
             ])
     paramater_grids['SVC']['parameters'] = \
-        {'classifier__kernel':('linear','poly','rbf','sigmoid'),
+        {'classifier__kernel':('linear','rbf','sigmoid'),
          'classifier__C': svc_C,
          'classifier__gamma': svc_gamma,
          'feature__n_components': pca_nfeatures}
@@ -116,5 +127,14 @@ def execute_grid_search(X,y):
         results = __grid_search_wrapper(details_dict['pipeline'],details_dict['parameters'],X,y, name=name,n_splits=25)
         results.to_pickle(output_path + name + '.grid_search.pkl')
 
-
+def load_grid_search_summary():
+    cols2keep = ["mean_test_score", "std_test_score", "mean_train_score", "std_train_score", "params"]
+    reduced_frame_list = []
+    for algorithum in algorithum_list:
+        results_df = pd.read_pickle(output_path + algorithum + '.grid_search.pkl')
+        results_df = results_df.loc[:, cols2keep]
+        results_df['algorithum'] = algorithum
+        reduced_frame_list.append(results_df)
+    summary_df = pd.concat(reduced_frame_list)
+    return summary_df
 
