@@ -14,7 +14,7 @@ from heart_disease.globals import data_path, output_path
 # Create Loger Object
 LOG_FMT = '%(asctime)s|%(name)s|%(levelname)s|%(message)s'
 
-handlers = [logging.FileHandler('grid_search.log'), logging.StreamHandler()]
+handlers = [logging.FileHandler('grid_search.log',mode='w'), logging.StreamHandler()]
 logging.basicConfig(level=logging.INFO, format=LOG_FMT,handlers=handlers)
 logger = logging.getLogger(__name__)
 

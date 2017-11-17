@@ -4,6 +4,8 @@ from sklearn.preprocessing import Imputer, StandardScaler
 from sklearn.pipeline import FeatureUnion, Pipeline
 from sklearn.model_selection import StratifiedShuffleSplit
 
+from sklearn.decomposition import PCA
+
 import pandas as pd
 import logging
 logger = logging.getLogger(__name__)
@@ -49,7 +51,6 @@ class OneHotEncoder(BaseEstimator, TransformerMixin):
     def fit(self, X, y=None):
         # Check that X and y have correct shape
         # X, y = check_X_y(X, y)
-        logger.debug("Calling OHE fit")
 
         total_feats = 0
 
@@ -79,7 +80,6 @@ class OneHotEncoder(BaseEstimator, TransformerMixin):
             X : array-like, shape = (n_samples, n_features)
         """
 
-        logger.debug("Calling OHE transform")
 
         X_out = np.zeros((X.shape[0],self.total_feats_))
 
@@ -158,6 +158,43 @@ class DataCleaner(object):
 
     def get_clean_dataframe(self, input_df):
         return pd.DataFrame(self.CleaningPipeline.fit_transform(input_df), columns=self.get_output_col_neams())
+
+class pass_through_PCA(PCA):
+    def __init__(self,n_components=None,**kwargs):
+        super().__init__()
+        self.is_pass_through = 'unknown'
+
+    def fit(self,X,y=None):
+        if self.n_components == 0:
+            self.is_pass_through = True
+        else:
+            self.is_pass_through = False
+
+        if self.is_pass_through:
+            logger.debug("Pass through fit, does Nothing")
+        else:
+            logger.debug("Not passthrough, Fitting Normal PCA")
+            super().fit(X,y)
+        return self
+
+    def transform(self, X):
+        if self.is_pass_through:
+            logger.debug("Pass through transform, does Nothing")
+            return X
+        else:
+            logger.debug("Transforming Normal PCA")
+            return super().transform(X)
+
+    def fit_transform(self, X, y=None):
+        if self.is_pass_through:
+            logger.debug("Fit Transform passthrough  PCA")
+            return self.fit(X,y).transform(X)
+        else:
+            logger.debug("Fit Transform Normal PCA")
+            return super().fit_transform(X,y)
+
+
+
 
 def stratified_split_off_validation(input_df, output_dir, name='',validation_size=0.25):
     X = np.array(input_df.iloc[:, :-1])
