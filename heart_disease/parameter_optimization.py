@@ -92,7 +92,7 @@ def get_paramater_grids(data_path):
         Pipeline([
             ('cleaner', hdpp.DataCleaner(data_path + 'meta_data.csv').CleaningPipeline),
             ('feature', PCA()),
-            ('classifier', GM(max_iter=500))
+            ('classifier', GM(max_iter=250,n_init=25))
             ])
     paramater_grids['GM']['parameters'] = \
         {'classifier__n_components': [1, 2, 4, 8, 16, 32],
@@ -123,12 +123,19 @@ def get_paramater_grids(data_path):
     return paramater_grids
 
 
-def execute_grid_search(X,y):
+def execute_grid_search(X,y,algs_2_run=None):
+
+    if algs_2_run is None:
+        algs_2_run = algorithum_list
+
     search_dict = get_paramater_grids(data_path)
 
     for name, details_dict in search_dict.items():
-        results = __grid_search_wrapper(details_dict['pipeline'],details_dict['parameters'],X,y, name=name,n_splits=25, n_jobs=4)
-        results.to_pickle(output_path + name + '.grid_search.pkl')
+        if name in algs_2_run:
+            results = __grid_search_wrapper(details_dict['pipeline'],details_dict['parameters'],X,y, name=name,n_splits=25, n_jobs=4)
+            results.to_pickle(output_path + name + '.grid_search.pkl')
+        else:
+            logging.info("{} Grid Search Skipped".format(name))
 
 def load_grid_search_summary():
     cols2keep = ["mean_test_score", "std_test_score", "mean_train_score", "std_train_score", "params"]
