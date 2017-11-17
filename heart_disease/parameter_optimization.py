@@ -6,9 +6,9 @@ from sklearn.pipeline import Pipeline
 
 from sklearn.linear_model.perceptron import Perceptron
 from sklearn.mixture import GaussianMixture as GM
-from sklearn.svm import SVC
 
-from sklearn.decomposition import PCA
+# from sklearn.decomposition import PCA
+from heart_disease.preprocessing import pass_through_PCA as PCA
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 from sklearn.svm import SVC
 
@@ -42,7 +42,10 @@ def __grid_search_wrapper(model, parameters, X, y, name='',
 def get_paramater_grids(data_path):
     """Returns all the Models / Paramters I'm searching over"""
 
-    pca_nfeatures = [1, 2, 5, 10, 15, 20, 24]
+    pca_nfeatures = [0, 1, 2, 5, 10, 15, 20, 24]
+    # 0 is a pass through value that does not do PCA
+    # 24 is safer because some features might be found in the training set. This might not be the safest design, but it works for now
+
 
     # some may have more or few features based on training. 24 seems safe
 
@@ -50,8 +53,8 @@ def get_paramater_grids(data_path):
     # A point is fractionally over the line if it violates the margin
     # 0 is a lower bound
     # The approximent number of training points (170)/2 seems like a reasonable upper bound
-    svc_C = [0.0, 1] + list(np.linspace(2, 100, 5))
-    svc_gamma = np.logspace(-6, -0.1, 10) #kernal parameter
+    svc_C = [0.1, 1] + list(np.linspace(2, 300, 10))
+    svc_gamma = np.logspace(-7, -0.1, 10) #kernal parameter
 
     paramater_grids = {}
 
@@ -89,7 +92,7 @@ def get_paramater_grids(data_path):
         Pipeline([
             ('cleaner', hdpp.DataCleaner(data_path + 'meta_data.csv').CleaningPipeline),
             ('feature', PCA()),
-            ('classifier', GM())
+            ('classifier', GM(max_iter=500))
             ])
     paramater_grids['GM']['parameters'] = \
         {'classifier__n_components': [1, 2, 4, 8, 16, 32],
@@ -124,7 +127,7 @@ def execute_grid_search(X,y):
     search_dict = get_paramater_grids(data_path)
 
     for name, details_dict in search_dict.items():
-        results = __grid_search_wrapper(details_dict['pipeline'],details_dict['parameters'],X,y, name=name,n_splits=25)
+        results = __grid_search_wrapper(details_dict['pipeline'],details_dict['parameters'],X,y, name=name,n_splits=25, n_jobs=4)
         results.to_pickle(output_path + name + '.grid_search.pkl')
 
 def load_grid_search_summary():
