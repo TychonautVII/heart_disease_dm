@@ -1,0 +1,16 @@
+2017-11-16 23:52:56,798|heart_disease.parameter_optimization|INFO|Perceptron_LDA Best Score: 0.791578947368421
+2017-11-16 23:52:56,798|heart_disease.parameter_optimization|INFO|Perceptron_LDA Best Params: {}
+2017-11-17 08:36:08,255|root|INFO|SVC Grid Search Skipped
+2017-11-17 08:36:08,255|root|INFO|SVC_poly Grid Search Skipped
+2017-11-17 08:36:08,255|heart_disease.parameter_optimization|INFO|GM Grid Search Started
+2017-11-17 08:37:15,884|root|INFO|SVC Grid Search Skipped
+2017-11-17 08:37:15,884|root|INFO|SVC_poly Grid Search Skipped
+2017-11-17 08:37:15,885|heart_disease.parameter_optimization|INFO|GM Grid Search Started
+2017-11-17 08:47:30,288|root|INFO|SVC Grid Search Skipped
+2017-11-17 08:47:30,288|root|INFO|SVC_poly Grid Search Skipped
+2017-11-17 08:47:30,288|heart_disease.parameter_optimization|INFO|GM Grid Search Started
+2017-11-17 09:18:29,448|heart_disease.parameter_optimization|INFO|GM Grid Search Complete
+2017-11-17 09:18:29,448|heart_disease.parameter_optimization|INFO|GM Best Score: 0.5901754385964912
+2017-11-17 09:18:29,449|heart_disease.parameter_optimization|INFO|GM Best Params: {'classifier__covariance_type': 'spherical', 'classifier__n_components': 2, 'feature__n_components': 15}
+2017-11-17 09:18:29,452|root|INFO|Perceptron_PCA Grid Search Skipped
+2017-11-17 09:18:29,452|root|INFO|Perceptron_LDA Grid Search Skipped
