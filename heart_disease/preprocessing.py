@@ -201,11 +201,11 @@ def stratified_split_off_validation(input_df, output_dir, name='',validation_siz
     y = np.array(input_df['ispos_truth'])
 
     sss = StratifiedShuffleSplit(n_splits=1, test_size=validation_size)
-    for train_idx, validation_idx in sss.split(X, y):
+    for train_idx, test_idx in sss.split(X, y):
         pass
     # outputs it into the same format as it was input
     input_df.iloc[train_idx, :].to_csv(output_dir + 'train_validation.' + name + '.csv', header=True, index_label='pat_id')
-    input_df.iloc[validation_idx, :].to_csv(output_dir + 'test.' + name + '.csv', header=True, index_label='pat_id')
+    input_df.iloc[test_idx, :].to_csv(output_dir + 'test.' + name + '.csv', header=True, index_label='pat_id')
 
 def load_data(data_path):
     """Loaded the data as written by stratified_split_off_validation. This is a little cleaner than the form of load_raw_data so a different reader was required"""

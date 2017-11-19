@@ -52,9 +52,9 @@ def get_paramater_grids(data_path):
     # Number of training points allowed to be on the wrong side of hyperplane.
     # A point is fractionally over the line if it violates the margin
     # 0 is a lower bound
-    # The approximent number of training points (170)/2 seems like a reasonable upper bound
-    svc_C = [0.1, 1] + list(np.linspace(2, 300, 10))
-    svc_gamma = np.logspace(-7, -0.1, 10) #kernal parameter
+    # The approximent number of training points (170)/2 seems like a reasonable upper bound (n
+    # The sklearn formulation is different than what was covered in the book
+    svc_gamma = np.logspace(-7, 0, 8) #kernal parameter
 
     paramater_grids = {}
 
@@ -67,8 +67,8 @@ def get_paramater_grids(data_path):
             ('classifier', SVC())
             ])
     paramater_grids['SVC']['parameters'] = \
-        {'classifier__kernel':('linear','rbf','sigmoid'),
-         'classifier__C': svc_C,
+        {'classifier__kernel':('linear','rbf','sigmoid'), #Linear doesn't gues gamma, but whatevs
+         'classifier__C':  np.logspace(-2,4,7),
          'classifier__gamma': svc_gamma,
          'feature__n_components': pca_nfeatures}
 
@@ -82,7 +82,7 @@ def get_paramater_grids(data_path):
             ])
     paramater_grids['SVC_poly']['parameters'] = \
         {'classifier__degree': [2, 3, 4, 5],
-         'classifier__C': svc_C,
+         'classifier__C':  np.logspace(-2,3,6),
          'classifier__gamma': svc_gamma,
          'feature__n_components': pca_nfeatures}
 
@@ -123,7 +123,7 @@ def get_paramater_grids(data_path):
     return paramater_grids
 
 
-def execute_grid_search(X,y,algs_2_run=None):
+def execute_grid_search(X,y,algs_2_run=None,n_splits=25,n_jobs=4):
 
     if algs_2_run is None:
         algs_2_run = algorithum_list
@@ -132,7 +132,7 @@ def execute_grid_search(X,y,algs_2_run=None):
 
     for name, details_dict in search_dict.items():
         if name in algs_2_run:
-            results = __grid_search_wrapper(details_dict['pipeline'],details_dict['parameters'],X,y, name=name,n_splits=25, n_jobs=4)
+            results = __grid_search_wrapper(details_dict['pipeline'],details_dict['parameters'],X,y, name=name,n_splits=n_splits, n_jobs=n_jobs)
             results.to_pickle(output_path + name + '.grid_search.pkl')
         else:
             logging.info("{} Grid Search Skipped".format(name))

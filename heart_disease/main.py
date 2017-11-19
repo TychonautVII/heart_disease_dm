@@ -24,5 +24,5 @@ logger = logging.getLogger(__name__)
 if __name__ =='__main__':
     data_file_name_str = 'train_validation.cleveland.csv'
     data_df = hdpp.load_data(data_path + data_file_name_str)
-    hdpo.execute_grid_search(data_df,data_df['ispos_truth'])
+    hdpo.execute_grid_search(data_df,data_df['ispos_truth'],n_splits=25,n_jobs=4)
     # TODO: add PCA to cleaner, make it an obvious paramater to be passed into cleaner, No Wrap PCA and put it in there!
