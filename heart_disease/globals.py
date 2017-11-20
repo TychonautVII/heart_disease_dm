@@ -8,6 +8,8 @@ data_path = '/Users/peter/OneDrive/Peter/JHU/DataMining/project/heart_disease/pr
 
 output_path = '/Users/peter/OneDrive/Peter/JHU/DataMining/project/output/'
 
+plot_path = '/Users/peter/OneDrive/Peter/JHU/DataMining/project/output/plots/'
+
 
 # LOG_FMT = '%(asctime)s|%(name)s|%(levelname)s|%(message)s'
 # logging.basicConfig(level=logging.DEBUG)
