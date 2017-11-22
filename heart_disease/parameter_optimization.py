@@ -145,6 +145,14 @@ def load_grid_search_summary():
         results_df = results_df.loc[:, cols2keep]
         results_df['algorithum'] = algorithum
         reduced_frame_list.append(results_df)
+        if algorithum == 'SVC_poly':
+            results_df['params'].apply(lambda x: x.update({'classifier__kernel': 'poly'}))
+    # Final Processing
     summary_df = pd.concat(reduced_frame_list)
+    summary_df['sigma_low_test_score'] = summary_df['mean_test_score'] - summary_df['std_test_score']
+    summary_df['sigma_low_train_score'] = summary_df['mean_train_score'] - summary_df['std_train_score']
+    summary_df = summary_df.sort_values(by='sigma_low_test_score', ascending=False)
+    summary_df['rank'] = np.array(range(summary_df.shape[0]))
+
     return summary_df
 

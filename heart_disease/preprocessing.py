@@ -10,7 +10,7 @@ import pandas as pd
 import logging
 logger = logging.getLogger(__name__)
 
-def load_raw_data(data_path, meta_path):
+def load_raw_data(raw_data_path, meta_path):
     """This function loads files located in the global data_path_str directory
     matching the format of the processed.x.data files from the UCI repository.
     It returns a pandas data frame"""
@@ -34,8 +34,8 @@ def load_raw_data(data_path, meta_path):
         dtype_map[col] = meta2pdtype[meta_datatype]
 
     # Read in the data
-    data_df = pd.read_csv((data_path),
-                          names=column_names, na_values='?',dtype=dtype_map)
+    data_df = pd.read_csv((raw_data_path),
+                          names=column_names, na_values='?', dtype=dtype_map)
 
     # Basic Pre-processing:
     data_df['ispos_truth'] = data_df['num'] != '0'
