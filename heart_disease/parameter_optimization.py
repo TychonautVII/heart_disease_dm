@@ -152,6 +152,8 @@ def load_grid_search_summary():
     summary_df['sigma_low_test_score'] = summary_df['mean_test_score'] - summary_df['std_test_score']
     summary_df['sigma_low_train_score'] = summary_df['mean_train_score'] - summary_df['std_train_score']
     summary_df = summary_df.sort_values(by='sigma_low_test_score', ascending=False)
+    # TODO Maybe this sorting could be made more complicated meaningfully. We could truncate the primary metric at
+    # a meaningful amout of sigfigs, and sort by a secondard metric to establish the rankings
     summary_df['rank'] = np.array(range(summary_df.shape[0]))
 
     return summary_df

@@ -10,6 +10,9 @@ import pandas as pd
 import logging
 logger = logging.getLogger(__name__)
 
+# TODO: Might be cool to implement an SKlearn algorithum selector, for when algorithums
+# need to be independently trained on different partitions of the dataset.
+
 def load_raw_data(raw_data_path, meta_path):
     """This function loads files located in the global data_path_str directory
     matching the format of the processed.x.data files from the UCI repository.
